@@ -1,0 +1,683 @@
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'paramneydi/css/styles.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'paramneydi/css/fontawesome.min.css' %}">
+
+
+
+    <style>
+        /* For Webkit (Chrome, Safari) */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* For Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+    </style>
+</head>
+<body>
+    {% load i18n %}
+    {% load widget_tweaks %}
+    {% include 'navbar.html' %}
+
+    <div class="calculator-container">
+    <h1>{% trans "Compound Interest Calculator" %}</h1>
+    <form method="post" id="compoundInterestForm">
+        {% csrf_token %}
+
+        <div id="empty-form" style="display:none">
+    <div>
+        <label>{% trans "Interest rate:" %}</label>
+        {{ formset.empty_form.interest_rate }}
+        <label>{% trans "Monthly contribution:" %}</label>
+        {{ formset.empty_form.monthly_contribution }}
+        <label>{% trans "Start year:" %}</label>
+        {{ formset.empty_form.start_year }}
+        <label>{% trans "End year:" %}</label>
+        {{ formset.empty_form.end_year }}
+        <button type="button" class="remove-form">{% trans "Remove" %}</button>
+    </div>
+</div>
+
+<div class="calculator-container">
+
+    <div class="step-box">{% trans "  Step 1: Initial Amount" %}</div>
+    <div class="input-pair no-border">
+    <label for="principal">{% trans "Principal:" %}</label>
+    <div class="currency-wrapper">
+        <input type="text" id="principal" name="principal" value="{{ form.data.principal }}" class="currency-input">
+        <span class="currency-symbol">{% if currentLanguage == "tr" %}₺{% else %}${% endif %}</span>
+    </div>
+</div>
+
+    <div class="step-box">{% trans "  Step 2: Contributions" %}</div>
+    <div class="input-pair">
+    <label for="monthly_contribution">{% trans "Monthly Contribution:" %}</label>
+    <div class="currency-wrapper">
+        <input type="text" id="monthly_contribution" name="monthly_contribution" value="{{ form.data.monthly_contribution }}" class="currency-input">
+        <span class="currency-symbol">{% if currentLanguage == "tr" %}₺{% else %}${% endif %}</span>
+    </div>
+</div>
+    <div class="input-pair no-border">
+        <label for="years">{% trans "Years:" %}</label>
+        <input type="number" id="years" name="years" value="{{ form.data.years }}">
+    </div>
+
+    <div class="step-box">{% trans "  Step 3: Interest rate" %}</div>
+    <div class="input-pair">
+        <label for="rate">{% trans "Interest Rate:" %}</label>
+        <input type="number" id="rate" name="rate" value="{{ form.data.rate }}">
+    </div>
+    <div class="input-pair no-border">
+        <label for="variance">{% trans "Variance:" %}</label>
+        <input type="number" id="variance" name="variance" value="{{ form.data.variance }}">
+    </div>
+
+    <div class="step-box">{% trans "  Step 4: Compound Frequency" %}</div>
+    <div class="input-pair no-border">
+        <label for="times_per_year">{% trans "Times Per Year:" %}</label>
+        <select name="{{ form.times_per_year.name }}" id="id_{{ form.times_per_year.name }}">
+    {% for value, display_name in form.fields.times_per_year.choices %}
+        <option value="{{ value }}" {% if value == form.times_per_year.value %}selected{% endif %}>{{ display_name }}</option>
+    {% endfor %}
+</select>
+
+    </div>
+
+
+    <div class="step-box">{% trans "  Step 5: Investment phases" %}</div>
+    <div id="phases">
+        {{ formset.management_form }}
+        <div id="form-set">
+            {% for phase_form in formset %}
+            <div class="single-form">
+                {% for field in phase_form %}
+                {{ field.errors }}
+                {% endfor %}
+                <div class="input-pair">
+                    <label for="{{ phase_form.interest_rate.id_for_label }}">
+                        {% trans "Interest rate:" %}
+                        <span class="instruction-text">Your estimated annual interest percentage.</span>
+                    </label>
+                    {{ phase_form.interest_rate }}
+                </div>
+                <div class="input-pair">
+                    <label for="{{ phase_form.monthly_contribution.id_for_label }}">
+                        {% trans "Monthly contribution:" %}
+                        <span class="instruction-text">Enter the contribution for this phase.</span>
+                    </label>
+                    {{ phase_form.monthly_contribution }}
+                </div>
+
+                <div class="input-pair">
+                    <label for="{{ phase_form.start_year.id_for_label }}">{% trans "Start year:" %}</label>
+                    {{ phase_form.start_year }}
+                </div>
+                <div class="input-pair">
+                    <label for="{{ phase_form.end_year.id_for_label }}">{% trans "End year:" %}</label>
+                    {{ phase_form.end_year }}
+                </div>
+                <button type="button" class="remove-form">{% trans "Remove" %}</button>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="button-container">
+            <button type="button" class="add-form">{% trans "Add" %}</button>
+        </div>
+        
+        <div id="empty-form" style="display: none;">
+            <div class="single-form">
+                <div class="input-pair">
+                    <label for="id_phases-__prefix__-interest_rate">{% trans "Interest rate:" %}</label>
+                    <input type="number" name="phases-__prefix__-interest_rate" id="id_phases-__prefix__-interest_rate">
+                </div>
+                <div class="input-pair">
+    <label for="id_phases-__prefix__-monthly_contribution">{% trans "Monthly contribution:" %}</label>
+    <div class="currency-wrapper">
+        <input type="text" name="phases-__prefix__-monthly_contribution" id="id_phases-__prefix__-monthly_contribution" class="currency-input">
+        <span class="currency-symbol">{% if currentLanguage == "tr" %}₺{% else %}${% endif %}</span>
+    </div>
+</div>
+                <div class="input-pair">
+                    <label for="id_phases-__prefix__-start_year">{% trans "Start year:" %}</label>
+                    <select name="phases-__prefix__-start_year" id="id_phases-__prefix__-start_year">
+                        <option value="" selected="">-----</option>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <!-- ... add more options as needed ... -->
+                    </select>
+                </div>
+                <div class="input-pair">
+                    <label for="id_phases-__prefix__-end_year">{% trans "End year:" %}</label>
+                    <select name="phases-__prefix__-end_year" id="id_phases-__prefix__-end_year">
+                        <option value="" selected="">-----</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <!-- ... add more options as needed ... -->
+                    </select>
+                </div>
+                <button type="button" class="remove-form">{% trans "Remove" %}</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<input type="hidden" id="phases_visibility" name="phases_visibility" value="{{ form.data.phases_visibility }}">
+<span id="calculatingMessage" class="loading-container">
+    <div class="spinner-circle"></div>
+    <span class="calculating-text">Calculating...</span>
+</span>
+<button type="submit">{% trans "Calculate" %}</button>
+    </form>
+
+<div id="results" class="result-container" style="display: none;">
+    <h2 id="total_amount">{% trans "Estimated Average Amount:" %} <span id="displayedTotalAmount"></span></h2>
+    <h2 id="lower_bound">{% trans "Minimum Amount:" %} <span id="displayedLowerBound"></span></h2>
+    <h2 id="upper_bound">{% trans "Maximum Amount:" %} <span id="displayedUpperBound"></span></h2>
+    <h2 id="total_spent">{% trans "Total Spent:" %} <span id="displayedTotalSpent"></span></h2>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+$(document).ready(function() {
+
+    function updateYearChoices() {
+    console.log("Updating year choices...");
+
+    // 1. Store the current values
+    const currentStartValues = {};
+    const currentEndValues = {};
+
+    $("select[id^='id_phases-']").each(function() {
+        if ($(this).attr("id").endsWith("-start_year")) {
+            currentStartValues[$(this).attr("id")] = $(this).val();
+        } else if ($(this).attr("id").endsWith("-end_year")) {
+            currentEndValues[$(this).attr("id")] = $(this).val();
+        }
+    });
+
+    $.ajax({
+        url: "/get_year_choices/",
+        data: {
+            'year_count': $("#years").val()
+        },
+        method: "GET",
+        success: function(data) {
+            console.log("Received data:", data);
+
+            $("select[id^='id_phases-']").each(function() {
+                if ($(this).attr("id").endsWith("-start_year")) {
+                    $(this).html(data.start_year);
+                } else if ($(this).attr("id").endsWith("-end_year")) {
+                    $(this).html(data.end_year);
+                }
+            });
+
+            // 2. Set the dropdowns back to their previous values
+            for (const [id, value] of Object.entries(currentStartValues)) {
+                $("#" + id).val(value);
+            }
+            for (const [id, value] of Object.entries(currentEndValues)) {
+                $("#" + id).val(value);
+            }
+        },
+        error: function(error) {
+            console.error("Error fetching year choices:", error);
+        }
+    });
+}
+    // Snippet to remove .0 from values (let's make it a function to reuse it when adding forms)
+    function removeDotZeroFromValues() {
+        $("input[id^='id_phases-'][id$='-interest_rate'], input[id^='id_phases-'][id$='-monthly_contribution']").each(function() {
+            var value = $(this).val();
+            if (value.endsWith('.0')) {
+                $(this).val(value.substring(0, value.length - 2));
+            }
+        });
+    }
+
+
+
+function reapplyCurrencyListeners() {
+    console.log('reapplyCurrencyListeners called');  // Log for debugging
+    document.querySelectorAll('.currency-input').forEach(function(inputElem) {
+        // Remove the processed class temporarily and reapply event listeners
+        inputElem.classList.remove('processed');
+        attachCurrencyEventListeners(inputElem);  // Ensure you have this function correctly defined
+        inputElem.classList.add('processed');
+    });
+}
+
+
+$('.add-form').click(function() {
+    var formIdx = $('#id_phases-TOTAL_FORMS').val();
+
+    // Clone the empty form and replace __prefix__
+    var newForm = $('#empty-form .single-form').clone();
+    newForm.html(newForm.html().replace(/__prefix__/g, formIdx));
+
+    // Append the cloned form to the form-set div
+    $('#form-set').append(newForm);
+
+    // Add instruction texts
+    newForm.find("label[for^='id_phases-" + formIdx + "-interest_rate']").append('<span class="instruction-text">Your estimated annual interest rate during this time period.</span>');
+    newForm.find("label[for^='id_phases-" + formIdx + "-monthly_contribution']").append('<span class="instruction-text">The monthly contribution during this time period.</span>');
+    newForm.find("label[for^='id_phases-" + formIdx + "-start_year']").append('<span class="instruction-text">Beginning year of the time period. (Years 0 to 1 is year 1)</span>');
+    newForm.find("label[for^='id_phases-" + formIdx + "-end_year']").append('<span class="instruction-text">The end year of the time period.</span>');
+
+    // Update the TOTAL_FORMS input value
+    $('#id_phases-TOTAL_FORMS').val(parseInt(formIdx) + 1);
+
+    // Attach focus and blur event listeners to new currency input
+    newForm.find('.currency-input').each(function() {
+        console.log('Found new currency input:', this); // Log to ensure element is found
+        $(this).on('focus', function() {
+            let standardizedValue = parseInputValue(this.value);
+            this.value = isNaN(standardizedValue) ? '' : standardizedValue;
+        });
+
+        $(this).on('blur', function() {
+            let standardizedValue = parseInputValue(this.value);
+            this.value = isNaN(standardizedValue) ? '' : formatWithLocale(standardizedValue);
+        });
+    });
+
+    // Call the updateYearChoices function if necessary
+    updateYearChoices();
+
+    // Set timeout to allow DOM update before reapplying listeners
+    setTimeout(() => {
+        console.log('Calling reapplyCurrencyListeners...');
+        reapplyCurrencyListeners();
+        console.log('Elements with currency-input class:', document.querySelectorAll('.currency-input'));
+    }, 100); // Adjust the delay as necessary
+});
+
+
+    // Initial update of year choices
+    updateYearChoices();
+
+    // Handle year change
+    $("#years").on('change keyup', updateYearChoices);
+
+
+
+     $("#form-set").on('click', '.remove-form', function() {
+    console.log('Remove button clicked!');
+    var form = $(this).parent();
+    if (form.length) {
+        console.log('Form found!');
+        form.remove();
+    } else {
+        console.log('No form found!');
+    }
+
+
+        // Adjusting the formset indices
+        var totalForms = $('#id_phases-TOTAL_FORMS');
+        totalForms.val(parseInt(totalForms.val()) - 1);
+
+        // Re-indexing the forms
+        $('.single-form').each(function(index, form) {
+            $(form).find('input, select, textarea, label').each(function() {
+                const regex = /-\d+-/g;
+                this.name = this.name.replace(regex, '-' + index + '-');
+                this.id = this.id.replace(regex, '-' + index + '-');
+
+                if (this.tagName.toLowerCase() === 'label') {
+                    this.setAttribute('for', this.getAttribute('for').replace(regex, '-' + index + '-'));
+                }
+            });
+        });
+    });
+
+    // Prevent default form submission on Enter in the "years" input
+    $("#years").keypress(function(e) {
+        if (e.which == 13) {
+            e.preventDefault();
+            updateYearChoices();
+        }
+    });
+
+
+    // Execute the function on DOM ready
+    removeDotZeroFromValues();
+
+    let numericInputs = document.querySelectorAll('input[type="number"]');
+    numericInputs.forEach(function(input) {
+        input.addEventListener('keydown', function(e) {
+            if (["e", "E", "+", "-"].includes(e.key)) {
+                e.preventDefault();
+            }
+        });
+    });
+});
+
+
+function addInstructions() {
+    // Removing any existing instruction-text elements to prevent duplicates
+    $(".instruction-text").remove();
+
+    // For main form elements
+$("label[for='principal']").append('<span class="instruction-text">The initial amount of money you start with.</span>');
+$("label[for='monthly_contribution']").append('<span class="instruction-text">Amount of money added each month.</span>');
+$("label[for='years']").append('<span class="instruction-text">Duration of investment in years.</span>');
+$("label[for='rate']").append('<span class="instruction-text">Expected annual interest rate (as a percentage).</span>');
+$("label[for='variance']").append('<span class="instruction-text">Variation in the expected rate.</span>');
+$("label[for='times_per_year']").append('<span class="instruction-text">Frequency of compounding interest annually.</span>');
+
+    // For the formset
+    var formIdx = $('#id_phases-TOTAL_FORMS').val() - 1;  // Because the last form index is actually TOTAL_FORMS - 1
+    $("#form-set .single-form").each(function(index) {
+        $(this).find("label[for^='id_phases-" + index + "-interest_rate']").append('<span class="instruction-text">Enter the interest rate for this phase.</span>');
+        $(this).find("label[for^='id_phases-" + index + "-monthly_contribution']").append('<span class="instruction-text">The monthly contribution added during the phase.</span>');
+        $(this).find("label[for^='id_phases-" + index + "-start_year']").append('<span class="instruction-text">Beginning year of this time period. (Years 0 to 1 is year 1)</span>');
+        $(this).find("label[for^='id_phases-" + index + "-end_year']").append('<span class="instruction-text">Enter the end year for this phase.</span>');
+    });
+}
+
+
+addInstructions();
+
+let currentLanguage;  // Global variable
+
+
+
+
+function applyCurrencyInputFormatting(input) {
+    input.addEventListener('focus', function() {
+        let value = parseFloat(this.value.replace(/[^0-9.-]+/g, ""));
+        this.value = isNaN(value) ? '' : value;
+    });
+
+    input.addEventListener('blur', function() {
+        let value = parseFloat(this.value.replace(/[^0-9.-]+/g, ""));
+        this.value = isNaN(value) ? '' : formatWithLocale(value);
+    });
+
+    // Immediate format for loaded inputs
+    let rawValue = input.value.replace(/[^0-9.-]+/g, "");
+    if(rawValue !== '') {
+        let value = parseFloat(rawValue);
+        input.value = isNaN(value) ? '' : formatWithLocale(value);
+    }
+}
+
+
+function standardizeNumber(value) {
+    if (currentLanguage === 'tr') {
+        return parseFloat(value.replace(/\./g, '').replace(',', '.'));
+    } else {
+        return parseFloat(value.replace(/,/g, ''));
+    }
+}
+
+
+function formatInputNumber(amount) {
+    var options = {
+        style: 'decimal',
+        minimumFractionDigits: 0, // No forced decimal places
+        maximumFractionDigits: 0  // No forced decimal places
+    };
+    return formatWithLocale(amount, options);
+}
+
+function formatResult(amount) {
+    if (currentLanguage === 'tr') {
+        return '₺' + new Intl.NumberFormat('tr-TR', {minimumFractionDigits: 0, maximumFractionDigits: 0}).format(amount);
+    } else {
+        return '$' + new Intl.NumberFormat('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0}).format(amount);
+    }
+}
+
+
+function formatWithLocale(amount, options) {
+    console.log('formatWithLocale called with:', amount);
+    if (currentLanguage === 'tr') {
+        return new Intl.NumberFormat('tr-TR', options).format(amount).replace(',', '|').replace('.', ',').replace('|', '.');
+    } else {
+        return new Intl.NumberFormat('en-US', options).format(amount);
+    }
+}
+
+function getCurrencyFormattedValue(value, isInputField) {
+    let formattedValue = isInputField ? formatInputNumber(value) : formatResultNumber(value);
+    return currentLanguage === 'tr' ? formattedValue + '₺' : '$' + formattedValue;
+}
+
+function formatWithLocale(amount) {
+    if (currentLanguage === 'tr') {
+        return '₺' + new Intl.NumberFormat('tr-TR', {style: 'decimal', minimumFractionDigits: 0}).format(amount);
+    } else {
+        return new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 0}).format(amount);
+    }
+}
+
+function parseInputValue(value) {
+    let rawValue = value.replace(/[^0-9.,]/g, '');
+    let standardizedValue = parseFloat(currentLanguage === 'tr' ? rawValue.replace(/\./g, '') : rawValue.replace(/,/g, ''));
+    return isNaN(standardizedValue) ? 0 : standardizedValue;
+}
+
+function attachCurrencyEventListeners(input) {
+    input.addEventListener('focus', function() {
+        // On focus, if the input value is 0 or equivalent, clear it to allow easy typing
+        if(parseInputValue(this.value) === 0) {
+            this.value = '';
+        }
+    });
+
+    input.addEventListener('blur', function() {
+        // On blur, if the input value is empty or equivalent, reset it to a formatted zero
+        if(parseInputValue(this.value) === 0 || this.value.trim() === '') {
+            this.value = formatWithLocale(0);
+        } else {
+            // If it's not empty, ensure it's formatted correctly
+            this.value = formatWithLocale(parseInputValue(this.value));
+        }
+    });
+
+    // On initial page load or reload, set the display value of each input field to be empty
+}
+
+
+document.querySelectorAll('.currency-input').forEach(function(inputElem) {
+    inputElem.addEventListener('focus', function() {
+        let rawValue = inputElem.value.replace(/[^0-9.,]/g, '');
+        let standardizedValue = standardizeNumber(rawValue);
+        inputElem.value = isNaN(standardizedValue) ? '' : standardizedValue;
+        inputElem.dataset.sanitized = standardizedValue; // Store the sanitized value
+    });
+
+    inputElem.addEventListener('blur', function() {
+        let standardizedValue = standardizeNumber(inputElem.value);
+        inputElem.dataset.sanitized = standardizedValue; // Update the sanitized value
+        if (currentLanguage === 'tr') {
+            inputElem.value = isNaN(standardizedValue) ? '' : '₺' + new Intl.NumberFormat('tr-TR', {minimumFractionDigits: 0, maximumFractionDigits: 0}).format(standardizedValue);
+        } else {
+            inputElem.value = isNaN(standardizedValue) ? '' : '$' + new Intl.NumberFormat('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0}).format(standardizedValue);
+        }
+    });
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const resultsElement = document.getElementById('results');
+    const loadingElement = document.getElementById('calculatingMessage');
+    currentLanguage = "{{ LANGUAGE_CODE }}";  // Initialization
+
+    function showLoading() {
+        loadingElement.style.display = 'flex';
+    }
+
+    function hideLoading() {
+        loadingElement.style.display = 'none';
+    }
+
+    function hideResults() {
+        resultsElement.style.display = 'none';
+    }
+
+    function showResults() {
+        resultsElement.style.display = 'block';
+    }
+
+    // Initially hide results
+    hideResults();
+
+    function formatWithLocale(amount) {
+        if (currentLanguage === 'tr') {
+            return '₺' + new Intl.NumberFormat('tr-TR', {style: 'decimal', minimumFractionDigits: 0}).format(amount);
+        } else {
+            return new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 0}).format(amount);
+        }
+    }
+
+    function parseInputValue(value) {
+        console.log('parseInputValue called with:', value);
+        let rawValue = value.replace(/[^0-9.,]/g, '');
+        let standardizedValue = parseFloat(currentLanguage === 'tr' ? rawValue.replace(/\./g, '') : rawValue.replace(/,/g, ''));
+        return isNaN(standardizedValue) ? '' : standardizedValue;
+    }
+
+    function attachCurrencyEventListeners(input) {
+        console.log('attachCurrencyEventListeners called with:', input);
+input.addEventListener('focus', function() {
+    console.log('Focus event - Before Parsing:', input.value);  // Log value before parsing
+    let parsedValue = parseInputValue(input.value);
+    console.log('Focus event - Parsed Value:', parsedValue);  // Log parsed value
+    this.value = parsedValue.toString();
+    console.log('Attempting to attach event listeners to:', input);
+if(!input) {
+    console.log('Input is null or undefined');
+} else if(input.addEventListener) {
+    console.log('Input is valid. Proceeding to attach event listeners.');
+} else {
+    console.log('Input does not support addEventListener. Input:', input);
+}
+});
+
+    }
+
+    function applyCurrencyFormattingToAllInputs() {
+        console.log('applyCurrencyFormattingToAllInputs called');
+        document.querySelectorAll('.currency-input:not(.processed)').forEach(input => {
+            attachCurrencyEventListeners(input);
+            input.classList.add('processed');
+        });
+    }
+
+    document.querySelector("#compoundInterestForm").addEventListener('submit', function(event) {
+        event.preventDefault();
+        console.log("Form submitted!");
+
+        // Show "Calculating..." message and hide previous results
+        showLoading();
+        hideResults();
+
+        const formData = new FormData(event.target);
+
+        // Additional logging to check FormData
+        for (let [key, value] of formData.entries()) { 
+            console.log(`${key}: ${value}`);
+        }
+
+        // Serialize FormData into a query string
+        const serializedData = new URLSearchParams(formData).toString();
+        console.log("Serialized Form Data:", serializedData);
+
+        const url = "{% url 'compound_interest_view' %}";
+        fetch(url, {
+            method: 'POST',
+            body: serializedData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Data received:", data);
+
+            const elements = {
+                total_amount: "#displayedTotalAmount",
+                total_spent: "#displayedTotalSpent",
+                lower_bound: "#displayedLowerBound",
+                upper_bound: "#displayedUpperBound"
+            };
+
+            Object.entries(elements).forEach(([key, selector]) => {
+                const element = document.querySelector(selector);
+                if (data[key] !== undefined && data[key] !== null && data[key] !== '') {
+                    element.innerText = data[key];
+                    console.log(`Setting text for ${selector}: ${data[key]}`);
+                } else {
+                    element.innerText = '';
+                }
+            });
+
+            // Hide "Calculating..." message, show results, and scroll after a delay
+            setTimeout(() => {
+                hideLoading();
+                showResults();
+                if (resultsElement) {
+                    resultsElement.scrollIntoView({ behavior: 'smooth' });
+                    console.log("Results element made visible and scrolled to");
+                }
+            }, 800); // Use 500ms for a half-second delay
+        })
+        .catch(error => {
+            console.error("There was an error with the fetch operation:", error.message);
+            hideLoading();
+        });
+    });
+
+    applyCurrencyFormattingToAllInputs();
+
+    document.querySelector('.add-form').addEventListener('click', function() {
+    setTimeout(() => {
+        console.log('Timeout after add-form click');
+        console.log('Checking dynamically created inputs...');
+
+        // Log the dynamically created inputs.
+        document.querySelectorAll('input').forEach(input => {
+            console.log(input);
+        });
+
+        applyCurrencyFormattingToAllInputs();
+    }, 100);
+});
+});
+
+</script>
+
+
+
+</body>
+</html>

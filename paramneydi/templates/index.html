@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'paramneydi/styles.css' %}">
+    <style>
+        body {
+            background-color: linen;
+        }
+        h1 {
+            color: green;
+            margin-left: 40px;
+        }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    {% load i18n %}
+    <h1>{% trans "Paramneydi" %}</h1>
+
+    <div class="center">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">{% trans "Get rate" %}</button>
+        </form>
+
+        {% if rate %}
+             <p>{{ amount }} {{ currency_from }} {% if currency_to == 'TRY' %}: {{ rate|floatformat:2 }} {% trans "Turkish Lira" %}{% else %}{% trans "equals to" %} {{ rate|floatformat:2 }} {{ currency_to }}{% endif %}.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

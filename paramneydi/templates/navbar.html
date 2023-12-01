@@ -1,0 +1,103 @@
+{% load i18n %}
+{% get_current_language as current_language %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .navbar, .dropdown, .dropdown-content {
+    background-color: #0ac100;  /* Light Green */
+    color: #FFFFFF;
+}
+
+.navbar {
+    overflow: hidden;
+}
+
+.navbar a {
+    float: left;
+    display: block;
+    color: #FFFFFF;    /* White Text */
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.navbar .icon {
+    display: none;
+}
+
+@media screen and (max-width: 600px) {
+    .navbar a:not(:first-child) {display: none;}
+    .navbar a.icon {
+        float: right;
+        display: block;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .navbar.responsive {position: relative;}
+    .navbar.responsive a.icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    .navbar.responsive a {
+        float: none;
+        display: block;
+        text-align: left;
+    }
+}
+
+    </style>
+</head>
+<body>
+
+<div class="navbar" id="myNavbar">
+    <a href="{% url 'home' %}">{% trans "Paramneydi" %}</a>
+    <a href="{% url 'currency_exchange' %}">{% trans "Currency Conversion" %}</a>
+    <a href="{% url 'tufe_bazli' %}">{% trans "TÜFE Bazlı Döviz Kuru" %}</a>
+
+    <div class="dropdown">
+
+        <button class="dropbtn navbar-link" onclick="toggleDropdown()">{% trans "Financial Tools" %}
+            <span class="arrow" id="arrow">&#9660;</span>
+        </button>
+        <div class="dropdown-content" id="dropdown-content">
+            <a href="{% url 'compound_interest_view' %}">{% trans "Compound Interest" %}</a>
+            <a href="{% url 'simple_interest_view' %}">{% trans "Simple Interest" %}</a>
+            <a href="{% url 'forex_compounding_view' %}">{% trans "Forex Compounding" %}</a>
+            <a href="{% url 'daily_compounding_view' %}">{% trans "Daily Compounding" %}</a>
+        </div>
+    </div>
+    <form action="{% url 'set_language' %}" method="post" style="float: left; margin: 0; padding: 0;">
+        {% csrf_token %}
+        <input name="next" type="hidden" value="{{ request.get_full_path }}" />
+        <select name="language" onchange="this.form.submit()" style="background-color: #333; color: #f2f2f2; border: none; font-size: 17px; padding: 14px 16px;">
+            <option value="en" {% if current_language == 'en' %}selected{% endif %}>English</option>
+            <option value="tr" {% if current_language == 'tr' %}selected{% endif %}>Türkçe</option>
+
+        </select>
+    </form>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars"></i>
+    </a>
+</div>
+
+<script>
+    function toggleDropdown() {
+    var x = document.getElementById("dropdown-content");
+    var arrow = document.getElementById("arrow");
+    if (x.style.display === "block") {
+        x.style.display = "none";
+        arrow.innerHTML = "&#9660;"; // Down arrow
+    } else {
+        x.style.display = "block";
+        arrow.innerHTML = "&#9650;"; // Up arrow
+    }
+}
+</script>
+</body>
+</html>

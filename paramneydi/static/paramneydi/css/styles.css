@@ -1,0 +1,357 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Your Current Styles */
+.center {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 75vh;
+   text-align: center;
+}
+
+body {
+    font-size: 20px;
+    background-color: #FFFFFF;  /* Setting background color to white */
+    color: #000000;             /* Setting default text color to black */
+}
+
+input, select {
+    font-size: 17.5px;
+}
+
+/* Hide spinner controls in Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+/* Hide spinner controls in Chrome, Safari, Edge, and IE 10+ */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.navbar a, .dropbtn {
+    text-decoration: none;
+    color: #FFFFFF;   /* Changed to white for better visibility */
+    font-size: 16px;
+    padding: 14px 20px;
+    display: inline-block;
+}
+
+.dropdown {
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    background-color: #000000; /* Changed to black for contrast */
+    position: absolute;
+    min-width: 200px;
+}
+
+.dropdown-content a {
+    padding: 14px 20px;
+    text-decoration: none;
+    display: block;
+    color: #FFFFFF;
+    font-size: 16px;
+}
+
+.navbar-link:hover, .navbar-link:focus, .dropdown-content a:hover {
+    background-color: grey;
+}
+
+.arrow {
+    border: none;
+    cursor: pointer;
+}
+
+/* New Styles */
+
+
+
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: #11e606; /* You can change to your desired color */
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0BA503; /* Darker green on hover */
+}
+
+
+
+
+/* For the headings */
+h1, h2 {
+    color: #000; /* Black color */
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* Labels */
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #000; /* Black color */
+}
+
+input[type="number"], input[type="text"], select {
+    max-width: 185px; /* or whatever width you feel looks best */
+}
+
+/* Green outline on focus */
+input[type="number"]:focus, input[type="text"]:focus, select:focus {
+    border-color: #11e606; /* green color */
+    outline: none; /* removes default browser outline */
+    box-shadow: 0 0 5px #11e606; /* optional: adds a glow effect around the input */
+}
+
+
+body {
+    font-family: Lato, sans-serif;
+}
+
+.calculator-container {
+    background-color: #001A52;
+    color: white;
+    padding: 12px;
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    margin: 50px auto;
+    position: relative;  /* Make it a stacking context */
+}
+
+.calculator-container * {
+    color: white;
+}
+
+.calculator-container select {
+    color: black;
+}
+
+.calculator-container input[type="text"],
+.calculator-container input[type="number"],
+.calculator-container select {
+    color: black;
+}
+
+.remove-form, .add-form {
+    display: block;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.remove-form {
+    background-color: red;
+}
+
+.input-pair:not(.no-border):not(:last-child)::before {
+    content: "";
+    display: block;
+    height: 2px;
+    background-color: #ffffff; /* Assuming white is the color you want */
+    position: absolute;
+    left: -24px;
+    right: -24px;
+    bottom: 0;
+}
+
+/* Updated styles for the .add-form button with the new after line */
+.add-form {
+    background-color: #11e606;
+    position: relative; /* Enables absolute positioning for the ::after pseudo-element */
+    display: block; /* Ensure the button is a block-level element */
+}
+
+/* New styles for the add button line */
+.button-container {
+    text-align: center; /* Center the button if needed */
+    position: relative; /* Makes sure that absolute positioning is relative to this container */
+    margin-bottom: 20px; /* Space for the line */
+}
+
+.button-container::after {
+    content: "";
+    display: block;
+    height: 2px;
+    background-color: white;
+    position: absolute;
+    left: 0; /* Span from the far left */
+    right: 0; /* Span to the far right */
+    bottom: 0; /* Position at the bottom of the button-container */
+    width: 100%; /* Ensure the line is full width */
+}
+
+.calculator-container select option {
+    color: black;
+}
+
+.input-pair {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    background-color: transparent;
+    padding: 3px 0;
+    margin-right: 0;
+    margin-left: 0;
+    align-items: flex-start; /* This ensures that the alignment starts from the top */
+    position: relative;
+}
+
+.input-pair label {
+    flex: 0 0 40%;
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: block;
+    padding-bottom: 24px;
+    width: 100%;
+    align-items: center; /* vertical alignment */
+    justify-content: space-between; /* horizontal spacing */
+}
+
+.input-pair input[type="text"],
+.input-pair input[type="number"],
+input[type="number"],.input-pair input[type="text"], .input-pair select {
+    margin-right: 10px;
+    flex: 1;
+    width: 100%;
+    top: 5px;
+    padding: 7px;
+    margin-bottom: 20px;
+    flex: 1 0 calc(25% - 10px);  /* take up 25% of the space minus margin */
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.step-box {
+    background-color: #003C8F;
+    padding: 12px;
+    margin: 8px -24px;  /* Pushes it out on both sides */
+    width: calc(100% + 48px);  /* Adjusted width to account for parent's padding */
+    border-radius: 0;
+    font-size: 1.2em;
+    box-shadow: none !important;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+}
+
+
+
+.calculator-container button:last-of-type {
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 3px;
+}
+
+
+
+.calculator-container h1 {
+    margin: 0; /* This removes any default margin from the h1, helping with vertical centering */
+    width: 100%; /* Ensures the h1 takes the full width of the parent */
+    text-align: center; /* Centers the text within the h1 */
+}
+
+
+
+.single-form {
+    flex-wrap: wrap;  /* This ensures items wrap if there isn't enough space */
+    justify-content: space-between; /* Distribute items evenly */
+}
+
+.instruction-text {
+    display: block; /* This will put the instruction text on a new line under the label */
+    font-size: 14px; /* adjust as needed */
+    color: white;
+    font-weight: normal;
+    margin-top: 5px; /* Adjust for spacing */
+}
+
+.input-pair:not(.no-border):not(:last-child)::before {
+    content: "";
+    display: block;
+    height: 2px;
+    background-color: white;
+    position: absolute;
+    left: -24px; /* This will push the line to the left by 24px */
+    right: -24px; /* This will push the line to the right by 24px */
+    bottom: 0; /* This will align the line to the bottom of the .input-pair */
+}
+
+.currency-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.currency-symbol {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; /* Makes the symbol unclickable, allowing focus on the input */
+}
+
+.currency-input::before,
+.currency-input::after {
+    content: none !important;
+}
+
+.currency-symbol {
+    display: none;
+}
+
+/* CSS for visible result containers */
+.result-container.visible {
+    display: none; /* or use 'flex', 'grid', etc., depending on your layout */
+}
+
+.loading-container {
+    display: none; /* Remove !important to allow JavaScript to override this */
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: row;
+}
+
+.spinner-circle {
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-top: 2px solid #007bff; /* Blue color */
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+    margin-right: 5px;
+}
+
+.calculating-text {
+    font-size: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#results,
+.result-container {
+    display: none;
+}

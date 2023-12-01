@@ -1,0 +1,171 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-08-21 14:03+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: .\exchange_rates\settings.py:100
+msgid "English"
+msgstr ""
+
+#: .\exchange_rates\settings.py:101
+msgid "Turkish"
+msgstr ""
+
+#: .\paramneydi\templates\compound_interest.html:11
+#: .\paramneydi\templates\navbar.html:71
+msgid "Compound Interest"
+msgstr ""
+
+#: .\paramneydi\templates\compound_interest.html:18
+#: .\paramneydi\templates\compound_interest.html:46
+msgid "Remove"
+msgstr ""
+
+#: .\paramneydi\templates\compound_interest.html:21
+msgid "Principal:"
+msgstr ""
+
+#: .\paramneydi\templates\compound_interest.html:23
+msgid "Interest Rate:"
+msgstr ""
+
+#: .\paramneydi\templates\compound_interest.html:25
+msgid "Times Per Year:"
+msgstr ""
+
+#: .\paramneydi\templates\compound_interest.html:31
+msgid "Years:"
+msgstr ""
+
+#: .\paramneydi\templates\compound_interest.html:33
+msgid "Monthly Contribution:"
+msgstr ""
+
+#: .\paramneydi\templates\compound_interest.html:35
+msgid "Variance:"
+msgstr ""
+
+#: .\paramneydi\templates\compound_interest.html:38
+#: .\paramneydi\templates\compound_interest.html:79
+msgid "Toggle investment phases"
+msgstr ""
+
+#: .\paramneydi\templates\compound_interest.html:40
+msgid "Investment Phases"
+msgstr ""
+
+#: .\paramneydi\templates\compound_interest.html:50
+msgid "Add"
+msgstr ""
+
+#: .\paramneydi\templates\compound_interest.html:53
+msgid "Calculate"
+msgstr ""
+
+#: .\paramneydi\templates\compound_interest.html:57
+msgid "Estimated Average Amount:"
+msgstr ""
+
+#: .\paramneydi\templates\compound_interest.html:60
+msgid "Minimum Amount:"
+msgstr ""
+
+#: .\paramneydi\templates\compound_interest.html:63
+msgid "Maximum Amount:"
+msgstr ""
+
+#: .\paramneydi\templates\compound_interest.html:66
+msgid "Total Spent:"
+msgstr ""
+
+#: .\paramneydi\templates\compound_interest.html:76
+msgid "Hide investment phases"
+msgstr ""
+
+#: .\paramneydi\templates\home.html:8 .\paramneydi\templates\index.html:19
+#: .\paramneydi\templates\navbar.html:63
+msgid "Paramneydi"
+msgstr ""
+
+#: .\paramneydi\templates\home.html:9
+msgid "This is the home page."
+msgstr ""
+
+#: .\paramneydi\templates\index.html:25
+msgid "Get rate"
+msgstr ""
+
+#: .\paramneydi\templates\index.html:29
+#: .\paramneydi\templates\kur_cevirme.html:15
+msgid "Turkish Lira"
+msgstr ""
+
+#: .\paramneydi\templates\index.html:29
+msgid "equals to"
+msgstr ""
+
+#: .\paramneydi\templates\kur_cevirme.html:6
+msgid "Currency Conversion"
+msgstr ""
+
+#: .\paramneydi\templates\kur_cevirme.html:10
+msgid "Convert"
+msgstr ""
+
+#: .\paramneydi\templates\kur_cevirme.html:15
+msgid "Euro"
+msgstr ""
+
+#: .\paramneydi\templates\kur_cevirme.html:15
+msgid "Dollar"
+msgstr ""
+
+#: .\paramneydi\templates\kur_cevirme.html:17
+msgid "to Euro"
+msgstr ""
+
+#: .\paramneydi\templates\kur_cevirme.html:17
+msgid "to Dollar"
+msgstr ""
+
+#: .\paramneydi\templates\kur_cevirme.html:17
+msgid "to Turkish Lira"
+msgstr ""
+
+#: .\paramneydi\templates\kur_cevirme.html:18
+msgid "equals"
+msgstr ""
+
+#: .\paramneydi\templates\navbar.html:64
+msgid "Kur Çevirme"
+msgstr ""
+
+#: .\paramneydi\templates\navbar.html:67
+msgid "Financial Tools"
+msgstr ""
+
+#: .\paramneydi\templates\navbar.html:72
+msgid "Simple Interest"
+msgstr ""
+
+#: .\paramneydi\templates\navbar.html:73
+msgid "Forex Compounding"
+msgstr ""
+
+#: .\paramneydi\templates\navbar.html:74
+msgid "Daily Compounding"
+msgstr ""

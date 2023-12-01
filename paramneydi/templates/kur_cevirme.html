@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<body>
+    {% load i18n %}
+    {% get_current_language as LANGUAGE %}
+    {% include 'navbar.html' %}
+    <h1>{% trans "Currency Conversion" %}</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">{% trans "Convert" %}</button>
+    </form>
+    {% if rate %}
+    <p>
+    {% blocktrans with amount_from=amount curr_from=currency_from rate_to=rate|floatformat:2 curr_to=currency_to %}
+    {{ amount_from }} {{ curr_from }} = {{ rate_to }} {{ curr_to }}.
+    {% endblocktrans %}
+    </p>
+
+    <p>
+        {% if LANGUAGE == "en" %}
+            {{ amount }}
+            {% if currency_from == 'EUR' %}{% trans "Euros" %}{% elif currency_from == 'USD' %}{% trans "American Dollars" %}{% elif currency_from == 'TRY' %}{% trans "Turkish Lira" %}{% endif %}
+            {% trans "equal to" %}
+            {{ rate|floatformat:2 }}
+            {% if currency_to == 'EUR' %}{% trans "Euros" %}{% elif currency_to == 'USD' %}{% trans "American Dollars" %}{% elif currency_to == 'TRY' %}{% trans "Turkish Lira" %}{% endif %}
+            .
+        {% else %}
+            {{ amount }}
+            {% if currency_from == 'EUR' %}{% trans "Euro" %}{% elif currency_from == 'USD' %}{% trans "Amerikan Doları" %}{% elif currency_from == 'TRY' %}{% trans "Türk Lirası" %}{% endif %}
+            {{ rate|floatformat:2 }}
+            {% if currency_to == 'EUR' %}{% trans "Euroya" %}{% elif currency_to == 'USD' %}{% trans "Amerikan Dolarına" %}{% elif currency_to == 'TRY' %}{% trans "Türk Lirasına" %}{% endif %}
+            {% trans "eşittir." %}
+        {% endif %}
+    </p>
+{% endif %}
+
+</body>
+</html>
+
+
+
+
+

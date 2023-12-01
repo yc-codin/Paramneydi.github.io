@@ -1,0 +1,202 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-08-21 14:03+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#, fuzzy
+msgid "English"
+msgstr "English"
+
+#: .\exchange_rates\settings.py:101
+msgid "Türkçe"
+msgstr "Türkçe"
+
+#: .\paramneydi\templates\compound_interest.html:11
+#: .\paramneydi\templates\navbar.html:71
+msgid "Compound Interest"
+msgstr "Bileşik Faiz"
+
+#: .\paramneydi\templates\compound_interest.html:18
+#: .\paramneydi\templates\compound_interest.html:46
+msgid "Remove"
+msgstr "Kaldır"
+
+#: .\paramneydi\templates\compound_interest.html:21
+msgid "Principal:"
+msgstr "Başlangıç Parası:"
+
+#: .\paramneydi\templates\compound_interest.html:23
+msgid "Interest Rate:"
+msgstr "Faiz:"
+
+#: .\paramneydi\templates\compound_interest.html:25
+msgid "Times Per Year:"
+msgstr "Yıldaki Sıklığı:"
+
+#: .\paramneydi\templates\compound_interest.html:31
+msgid "Years:"
+msgstr "Yıllar:"
+
+#: .\paramneydi\templates\compound_interest.html:33
+msgid "Monthly Contribution:"
+msgstr "Aylık Ekleme:"
+
+#: .\paramneydi\templates\compound_interest.html:35
+msgid "Variance:"
+msgstr "Varyans:"
+
+#: .\paramneydi\templates\compound_interest.html:38
+#: .\paramneydi\templates\compound_interest.html:79
+msgid "Toggle investment phases"
+msgstr "Yatırım aşamalarını aç/kapat"
+
+#: .\paramneydi\templates\compound_interest.html:40
+msgid "Investment Phases"
+msgstr "Yatırım Aşamaları"
+
+#: .\paramneydi\templates\compound_interest.html:50
+msgid "Add"
+msgstr "Ekle"
+
+#: .\paramneydi\templates\compound_interest.html:53
+msgid "Calculate"
+msgstr "Hesapla"
+
+#: .\paramneydi\templates\compound_interest.html:57
+msgid "Estimated Average Amount:"
+msgstr "Tahmini Miktar:"
+
+#: .\paramneydi\templates\compound_interest.html:60
+msgid "Minimum Amount:"
+msgstr "Minimum Miktar:"
+
+#: .\paramneydi\templates\compound_interest.html:63
+msgid "Maximum Amount:"
+msgstr "Maksimum Miktar:"
+
+#: .\paramneydi\templates\compound_interest.html:66
+msgid "Total Spent:"
+msgstr "Toplam Harcanan:"
+
+#: .\paramneydi\templates\compound_interest.html:76
+msgid "Hide investment phases"
+msgstr "Yatırım aşamalarını gizle"
+
+#: .\paramneydi\templates\home.html:8 .\paramneydi\templates\index.html:19
+#: .\paramneydi\templates\navbar.html:63
+msgid "Paramneydi"
+msgstr "Paramneydi"
+
+#: .\paramneydi\templates\home.html:9
+msgid "This is the home page."
+msgstr "Burası ana sayfa."
+
+#: .\paramneydi\templates\index.html:25
+msgid "Get rate"
+msgstr "Kur al"
+
+#: .\paramneydi\templates\kur_cevirme.html:10
+msgid "Convert"
+msgstr "Dönüştür"
+
+#: .\paramneydi\templates\kur_cevirme.html:15
+msgid "Euros"
+msgstr "Euro"
+
+#: .\paramneydi\templates\kur_cevirme.html:17
+msgid "to Euro"
+msgstr "Euroya"
+
+msgid "to American Dollar"
+msgstr "Amerikan Dolarına"
+
+#: .\paramneydi\templates\kur_cevirme.html:17
+msgid "to Turkish Lira"
+msgstr "Türk Lirasına"
+
+#: .\paramneydi\templates\navbar.html:64
+msgid "Currency Conversion"
+msgstr "Kur Çevirme"
+
+#: .\paramneydi\templates\navbar.html:67
+msgid "Financial Tools"
+msgstr "Finans Araçları"  # Changed "Eşyaları" to "Araçları" since "tools" is best translated as "araçları" in this context.
+
+#: .\paramneydi\templates\navbar.html:72
+msgid "Simple Interest"
+msgstr "Basit Faiz"  # Capitalized "Faiz" for consistency
+
+#: .\paramneydi\templates\navbar.html:73
+msgid "Forex Compounding"
+msgstr "Forex Bileşik Faiz"  # Translated "Compounding"
+
+#: .\paramneydi\templates\navbar.html:74
+msgid "Daily Compounding"
+msgstr "Günlük Bileşik Faiz"  # Translated "Daily Compounding"
+
+msgid "Currency:"
+msgstr "Para Birimi:"
+
+msgid "Currency to Convert:"
+msgstr "Dönüştürülecek Para Birimi:"
+
+msgid "Select a currency"
+msgstr "Bir para birimi seçin"
+
+msgid "Amount:"
+msgstr "Miktar:"
+
+#: .\paramneydi\templates\index.html:29
+#: .\paramneydi\templates\kur_cevirme.html:15
+msgid "Turkish Lira"
+msgstr "Türk Lirası"
+
+msgid "American Dollars"
+msgstr "Amerikan Doları"
+
+msgid "equal to"
+msgstr "eşittir"
+
+msgid "{{ amount_from }} {{ curr_from_full }} equal to {{ rate_to }} {{ curr_to_full }}."
+msgstr "{{ amount_from }} {{ curr_from_full }} {{ rate_to }} {{ curr_to_full }} eşittir."
+
+msgid "Start year:"
+msgstr "Başlangıç yılı:"
+
+msgid "End year:"
+msgstr "Bitiş yılı:"
+
+msgid "Interest rate:"
+msgstr "Faiz:"
+
+msgid "Monthly contribution:"
+msgstr "Aylık Ekleme:"
+
+msgid "Annually"
+msgstr "Yıllık"
+
+msgid "Semiannually"
+msgstr "Yarıyıllık"
+
+msgid "Monthly"
+msgstr "Aylık"
+
+msgid "Daily"
+msgstr "Günlük"
+
+msgid "Compound Interest Calculator"
+msgstr "Bileşik Faiz Hesaplayıcı"

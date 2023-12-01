@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TÜFE Bazlı Döviz Kuru</title>
+</head>
+<body>
+    <form method="post" action="{% url 'tufe_bazli' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Değeri Al</button>
+    </form>
+
+    {% if value %}
+        <p>Seçilen Tarihe Ait Değer: {{ value }}</p>
+    {% endif %}
+</body>
+</html>
